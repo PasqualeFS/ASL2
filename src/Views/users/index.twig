@@ -1,0 +1,14 @@
+{% include 'header.twig' %}
+
+<h1>My Recipes</h1>
+
+<ul>
+	{% for recipe in my_recipes %}
+	<li><a href="{{ path('recipe_detail', {'id': recipe.id}) }}">{{recipe.title}}</a> <a href="{{ path('recipe_edit', {'id': recipe.id}) }}">Edit</a> <a href="{{path('recipe_delete', {'id': recipe.id}) }}">Delete</a></li>
+	{% endfor %}
+</ul>
+
+<h1>My Favorites</h1>
+<p>Coming soon!</p>
+
+{% include 'footer.twig' %}

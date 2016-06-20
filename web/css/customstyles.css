@@ -1,0 +1,8 @@
+/* ----- GLOBAL STYLES ----- */
+
+label {display: block; }
+input { display: block; }
+
+#main {
+	margin-top: 175px;
+}

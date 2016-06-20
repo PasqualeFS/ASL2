@@ -1,0 +1,9 @@
+{% include 'header.twig' %}
+
+{% if is_granted('IS_AUTHENTICATED_FULLY') %}
+	<h3>Hello, {{ app.user.firstName }}!</h3>
+{% endif %}
+
+<h1>Welcome to Pasquale's Recipes!</h1>
+
+{% include 'footer.twig' %}

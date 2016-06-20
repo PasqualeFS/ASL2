@@ -2,20 +2,82 @@
 
 namespace App\Controllers;
 
+use Silex\Application;
+
 class Recipes {
-	public function list(){
-		$sqlquery = $dbh->prepare("SELECT id, title, ingredients, instructions FROM recipes");
-		$sqlquery->execute();
-		$result = $sqlquery->fetchAll();
+	public function index (Application $app) 
+	{
+		$model = new \App\Models\Recipes($app['db']);
 
-		$recipeLink = "";
-
-		foreach ($result as $row) {
-	        $recipeLink .= '<a href="/details/' . $row['id'] . '">' . $row['title'] . '</a><br />';
-	    }
-
-	    return $recipeLink;
-
+		return $app['twig']->render('recipes/index.twig', array(
+		    'recipes' => $model->fetch(),
+		));
 	}
+
+	public function details (Application $app, $id)
+	{
+		$model = new \App\Models\Recipes($app['db']);
+
+		return $app['twig']->render('recipes/detail.twig', array(
+	        'recipe' => $model->fetchOne($id),
+    	));
+	}
+
+
+	public function add (Application $app)
+	{
+		$model = new \App\Models\Recipes($app['db']);
+
+		if (isset($_POST['submit'])) {
+			$userId=$app['user']->getId();
+		    $recipetitle=$_POST['title']; //get POST values
+		    $recipeingredients=$_POST['ingredients'];
+		    $recipeinstructions=$_POST['instructions'];
+		    $recipecategory=$_POST['category'];
+		    $recipecuisine=$_POST['cuisine'];
+		    
+		    $result = $model->insert($recipetitle, $recipeingredients, $recipeinstructions, $recipecategory, $recipecuisine, $userId);
+
+		    if ($result == false){
+		    	// An error happened
+		    } else {
+		    	// All good
+		    }
+		}
+		return $app['twig']->render('recipes/add.twig');
+	}
+
+	public function edit (Application $app, $id)
+	{
+		$recipesModel = new \App\Models\Recipes($app['db']);
+		$categoriesModel = new \App\Models\Categories($app['db']);
+		$cuisineModel = new \App\Models\Cuisine($app['db']);
+
+		if (isset($_POST['submit'])) {
+		    $recipetitle=$_POST['title']; //get POST values
+		    $recipeingredients=$_POST['ingredients'];
+		    $recipeinstructions=$_POST['instructions'];
+		    $recipecategory=$_POST['category'];
+		    $recipecuisine=$_POST['cuisine'];
+		    
+		    $recipesModel->update($id, $recipetitle, $recipeingredients, $recipeinstructions, $recipecategory, $recipecuisine);
+		}
+
+		return $app['twig']->render('recipes/edit.twig', array(
+	        'recipe' => $recipesModel->fetchOne($id),
+	        'categories' => $categoriesModel->fetch(), 
+	        'cuisines' => $cuisineModel->fetch(), 
+    	));
+
+    }
+
+    public function delete (Application $app, $id) {
+    	// FILL ME IN
+    	$model = new \App\Models\Recipes($app['db']);
+    	
+    	$status = $model->delete($id);
+
+    	return json_encode(array('status' => $status));
+    }
 }
 

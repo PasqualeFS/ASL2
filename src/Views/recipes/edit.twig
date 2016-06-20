@@ -1,0 +1,22 @@
+{% include 'header.twig' %}
+<h1>Edit {{ recipe.title }}</h1>
+
+<form action="" method="POST">
+    <input type="text" name="title" value="{{recipe.title}}" required />
+    <textarea name="ingredients" cols="60" rows="10" required>{{recipe.ingredients}}</textarea>
+    <textarea name="instructions" cols="60" rows="10" required>{{recipe.instructions}}</textarea>
+    <!-- input type="text" name="cuisineupdate" value="{{recipe.cuisine_id}}" required / -->
+    <select name="category" placeholder="{{recipe.category_id}}">
+        {% for category in categories %}
+            <option value="{{category.id}}"{% if category.id == recipe.category_id %} selected{% endif %}>{{category.category|capitalize}}</option>
+        {% endfor %}
+    </select>
+    <select name="cuisine">
+        {% for cuisine in cuisines %}
+            <option value="{{cuisine.id}}"{% if cuisine.id == recipe.cuisine_id %} selected{% endif %}>{{cuisine.type|capitalize}}</option>
+        {% endfor %}
+    </select>
+    <input type="submit" name="submit" value="Update Recipe" class="formButton" />
+</form>
+
+{% include 'footer.twig' %}
