@@ -4,11 +4,26 @@
 
 <ul>
 	{% for recipe in my_recipes %}
-	<li><a href="{{ path('recipe_detail', {'id': recipe.id}) }}">{{recipe.title}}</a> <a href="{{ path('recipe_edit', {'id': recipe.id}) }}">Edit</a> <a href="{{path('recipe_delete', {'id': recipe.id}) }}">Delete</a></li>
+	   <li>
+            <a href="{{ path('recipe_detail', {'id': recipe.id}) }}">{{recipe.title}}</a>
+            <a href="{{ path('recipe_edit', {'id': recipe.id}) }}">Edit</a>
+            <a href="{{ path('recipe_delete', {'id': recipe.id}) }}">Delete</a>
+        </li>
+    {% else %}
+        <p>You haven't added any recipes yet. <a href="{{ path('recipe_add') }}">Add one</a></p>
 	{% endfor %}
 </ul>
 
 <h1>My Favorites</h1>
-<p>Coming soon!</p>
+<ul>
+    {% for favorite in favorites %}
+        <li>
+            <a href="{{ path('recipe_detail', {'id': favorite.id}) }}">{{favorite.title}}</a>
+            <a href="{{ path('recipe_remove_favorite', {'recipe_id': favorite.id}) }}">Delete</a>
+        </li>
+    {% else %}
+        <p>You don't have any favorites yet.</p>
+    {% endfor %}
+</ul>
 
 {% include 'footer.twig' %}

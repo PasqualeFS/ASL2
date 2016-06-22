@@ -61,7 +61,7 @@
                         <a href="{{ path('recipe_index') }}">Browse Recipes</a>
                     </li>
                     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                        <li><a href="{{ path('user_account', { id: app.user.id }) }}">My Recipes</a></li>
+                        <li><a href="{{ path('user_account') }}">My Recipes</a></li>
                         <li><a href="{{ path('logout') }}">Logout</a></li>
                     {% else %}
                         <li><a href="{{ path('login') }}">Login</a></li>

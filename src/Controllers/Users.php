@@ -5,12 +5,16 @@ namespace App\Controllers;
 use Silex\Application;
 
 class Users {
-	public function index (Application $app) 
+	public function index (Application $app)
 	{
-		$model = new \App\Models\Recipes($app['db']);
+		$recipeModel = new \App\Models\Recipes($app['db']);
+        $favoriteModel = new \App\Models\Favorites($app['db']);
+
+        $userId=$app['user']->getId();
 
 		return $app['twig']->render('users/index.twig', array(
-			'my_recipes' => $model->fetch($app['user']->getId())
+			'my_recipes' => $recipeModel->fetch($userId),
+            'favorites' => $favoriteModel->fetch($userId)
 		));
 	}
 }

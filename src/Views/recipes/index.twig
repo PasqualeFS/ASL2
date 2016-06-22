@@ -1,7 +1,32 @@
 {% include 'header.twig' %}
 
+<form action="" method="GET">
+    <label for="titleSearch">Title</label>
+    <input type="text" name="titleSearch" value="{{ titleSearch }}" />
+
+    <label for="categorySearch">Category</label>
+    <select name="categorySearch">
+        <option value="">Any</option>
+        {% for category in categories %}
+            <option value="{{category.id}}"{% if category.id == categorySearch %} selected{% endif %}>{{category.category|capitalize}}</option>
+        {% endfor %}
+    </select>
+
+    <label for="cuisineSearch">Cuisine</label>
+    <select name="cuisineSearch">
+        <option value="">Any</option>
+        {% for cuisine in cuisines %}
+            <option value="{{cuisine.id}}"{% if cuisine.id == cuisineSearch %} selected{% endif %}>{{cuisine.type|capitalize}}</option>
+        {% endfor %}
+    </select>
+    <input type="submit" name="submit" value="Search" class="formButton" />
+    <input type="button" onclick="location.href='{{ path('recipe_index') }}';" value="Reset Search" />
+</form>
+
 {% for recipe in recipes %}
 <a href="/recipes/{{recipe.id}}">{{recipe.title}}</a><br />
+{% else %}
+<p>No recipes found</p>
 {% endfor %}
 
 {% include 'footer.twig' %}

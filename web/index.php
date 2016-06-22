@@ -3,7 +3,7 @@
 require_once __DIR__.'/../vendor/autoload.php'; // this loads the framework
 
 $app = new Silex\Application(); // this creates a new instance of an application.
-
+date_default_timezone_set('UTC');
 $app['debug'] = true;
 
 // The three lines that follow use Twig to set the path for the views
@@ -41,7 +41,7 @@ $app->register(new Silex\Provider\SecurityServiceProvider(), array(
     'security.access_rules' => array(
         array('/recipes/add', 'ROLE_USER'),
         array('/recipes/edit', 'ROLE_USER'),
-        array('/users', 'ROLE_USER'),
+        array('/user', 'ROLE_USER'),
     )
 ));
 
@@ -72,8 +72,10 @@ $app->get('/recipes/delete/{id}', 'App\Controllers\Recipes::delete')->bind('reci
 
 $app->get('/login', 'App\Controllers\Login::index')->bind('login');
 
-$app->get('/users/{id}', 'App\Controllers\Users::index')->bind('user_account');
+$app->get('/user', 'App\Controllers\Users::index')->bind('user_account');
 
-$app->get('/recipes/favorite/{id}', 'App\Controllers\recipes::favorite')->bind('recipe_favorite');
+$app->get('/recipes/favorite/add/{recipe_id}', 'App\Controllers\recipes::addFavorite')->bind('recipe_add_favorite');
+
+$app->get('/recipes/favorite/remove/{recipe_id}', 'App\Controllers\recipes::removeFavorite')->bind('recipe_remove_favorite');
 
 $app->run();

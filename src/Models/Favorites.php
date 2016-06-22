@@ -1,26 +1,50 @@
 <?php
-	
-	namespace App\Models;
-
-	use Silex\Application;
+namespace App\Models;
 
 class Favorites {
-	// need an add function that takes user ID and recipe ID and inserts it into the favorites table.
-	public function update ($id, $title, $ingredients, $instructions, $category_id, $cuisine_id){
-		$stmt=$this->db->prepare("UPDATE recipes SET title = :title, ingredients = :ingredients, instructions = :instructions, category_id = :category_id, cuisine_id = :cuisine_id WHERE id = :id");
+	private $db;
 
-		$stmt->bindParam(':title', $title);
-		$stmt->bindParam(':ingredients', $ingredients);
-		$stmt->bindParam(':instructions', $instructions);
-		$stmt->bindParam(':category_id', $category_id);
-		$stmt->bindParam(':cuisine_id', $cuisine_id);
-		$stmt->bindParam(':id', $id);
+	public function __construct ($db) {
+		$this->db = $db;
+	}
+
+	public function fetch ($user_id, $recipe_id = null) {
+		$sql = "SELECT r.id, r.title FROM favorites f JOIN recipes r ON f.recipeid = r.id WHERE f.userid = :user_id";
+
+		$values = array(':user_id' => $user_id);
+
+		if ($recipe_id) {
+			$sql .= " AND f.recipeid = :recipe_id";
+
+			$values[':recipe_id'] = $recipe_id;
+		}
+
+		return $this->db->fetchAll($sql, $values);
+	}
+
+	public function add ($user_id, $recipe_id){
+		$stmt=$this->db->prepare("INSERT INTO favorites (userid, recipeid, favorited_datetime) VALUES(:user_id, :recipe_id, NOW())");
+
+		$stmt->bindParam(':user_id', $user_id);
+		$stmt->bindParam(':recipe_id', $recipe_id);
 
 		return $stmt->execute();
-	}	
-	// add delete/remove function for favorites
+	}
 
+	public function delete ($recipe_id, $user_id = null) {
+		$sql = "DELETE FROM favorites WHERE recipeid = :recipe_id";
 
+		$values = array(':recipe_id' => $recipe_id);
 
+		if ($user_id) {
+			$sql .= " AND userid = :user_id";
+
+			$values[':user_id'] = $user_id;
+		}
+
+		$sqlquery = $this->db->prepare($sql);
+		return $sqlquery->execute($values);
+
+	}
 
 }
