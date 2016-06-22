@@ -74,10 +74,18 @@ class Recipes {
     public function delete (Application $app, $id) {
     	// FILL ME IN
     	$model = new \App\Models\Recipes($app['db']);
-    	
+    	$userId=$app['user']->getId();
+
     	$status = $model->delete($id);
 
-    	return json_encode(array('status' => $status));
+    	return $app->redirect('users/' . $userId);
+    }
+
+    public function favorite (Application $app, $id) {
+    	// create new favorites model and redirect back to recipe page
+    	$model = new \App\Models\Favorites($app['db']);
+    	$userId=$app['user']->getId();
+    	$model->add($userId, $id);
     }
 }
 

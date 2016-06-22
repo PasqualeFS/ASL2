@@ -74,4 +74,6 @@ $app->get('/login', 'App\Controllers\Login::index')->bind('login');
 
 $app->get('/users/{id}', 'App\Controllers\Users::index')->bind('user_account');
 
+$app->get('/recipes/favorite/{id}', 'App\Controllers\recipes::favorite')->bind('recipe_favorite');
+
 $app->run();
