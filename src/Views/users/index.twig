@@ -1,29 +1,31 @@
 {% include 'header.twig' %}
+<div class="outerWrapper">
+    <div class="innerWrapper">
+        <h3>My Recipes</h1>
 
-<h1>My Recipes</h1>
+        <ul>
+        	{% for recipe in my_recipes %}
+        	   <li>
+                    <a href="{{ path('recipe_detail', {'id': recipe.id}) }}" class="recipeList">{{recipe.title}}</a>
+                    <a href="{{ path('recipe_edit', {'id': recipe.id}) }}" class="btn btn-success btn-sm">Edit</a>
+                    <a href="{{ path('recipe_delete', {'id': recipe.id}) }}" class="btn btn-success btn-sm">Delete</a>
+                </li>
+            {% else %}
+                <p>You haven't added any recipes yet. <a href="{{ path('recipe_add') }}">Add one</a></p>
+        	{% endfor %}
+        </ul>
 
-<ul>
-	{% for recipe in my_recipes %}
-	   <li>
-            <a href="{{ path('recipe_detail', {'id': recipe.id}) }}">{{recipe.title}}</a>
-            <a href="{{ path('recipe_edit', {'id': recipe.id}) }}">Edit</a>
-            <a href="{{ path('recipe_delete', {'id': recipe.id}) }}">Delete</a>
-        </li>
-    {% else %}
-        <p>You haven't added any recipes yet. <a href="{{ path('recipe_add') }}">Add one</a></p>
-	{% endfor %}
-</ul>
-
-<h1>My Favorites</h1>
-<ul>
-    {% for favorite in favorites %}
-        <li>
-            <a href="{{ path('recipe_detail', {'id': favorite.id}) }}">{{favorite.title}}</a>
-            <a href="{{ path('recipe_remove_favorite', {'recipe_id': favorite.id}) }}">Delete</a>
-        </li>
-    {% else %}
-        <p>You don't have any favorites yet.</p>
-    {% endfor %}
-</ul>
-
+        <h3>My Favorites</h1>
+        <ul>
+            {% for favorite in favorites %}
+                <li>
+                    <a href="{{ path('recipe_detail', {'id': favorite.id}) }}">{{favorite.title}}</a>
+                    <a href="{{ path('recipe_remove_favorite', {'recipe_id': favorite.id}) }}" class="btn btn-success btn-sm">Delete</a>
+                </li>
+            {% else %}
+                <p>You don't have any favorites yet.</p>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
 {% include 'footer.twig' %}

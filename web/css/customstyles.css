@@ -5,7 +5,7 @@ body {
 	flex-direction: column;
 }
 
-label {display: block; }
+label {display: block; margin-top: 4px; }
 input { display: block; }
 
 #main {
@@ -102,6 +102,14 @@ select.form-control {
     text-align: center;
 }
 
+.recipeList {
+    margin: 0 20px 15px 0;
+}
+
+li {
+    margin-bottom: 12px;
+}
+
 
 
 
@@ -114,8 +122,8 @@ and (max-width: 480px) {
     }
     
     footer {
-    position: relative;
-    /* bottom: 0; */
+    position: absolute;
+    bottom: 0;
     left: 0;
     width: 100%;
     }

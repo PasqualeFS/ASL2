@@ -1,16 +1,23 @@
 {% include 'header.twig' %}
-<h1>{{recipe.title}}</h1>
+<div class="outerWrapper">
+	<div class="innerWrapper">
+		<h2>{{recipe.title}}</h2>
 
-{% if is_granted('IS_AUTHENTICATED_FULLY') %}
-    {% if is_favorited %}
-    <p><a href="{{ path('recipe_remove_favorite', {'recipe_id': recipe.id}) }}">Remove Favorite</a></p>
-    {% else %}
-    <p><a href="{{ path('recipe_add_favorite', {'recipe_id': recipe.id}) }}">Add Favorite</a></p>
-    {% endif %}
-{% endif %}
+		
+		<h4 class="standout">Ingredients</h4>
+		<p>{{recipe.ingredients|nl2br}}</p>
+		<h4 class="standout">Instructions</h4>
+		<p>{{recipe.instructions|nl2br}}</p>
+		<p><span class="standout">Category:</span> {{recipe.category}}</p>
+		<p><span class="standout">Cuisine:</span> {{recipe.type}}</p>
 
-<p>{{recipe.ingredients|nl2br}}</p>
-<p>{{recipe.instructions|nl2br}}</p>
-<p>{{recipe.category}}</p>
-<p>{{recipe.type}}</p>
+		{% if is_granted('IS_AUTHENTICATED_FULLY') %}
+		    {% if is_favorited %}
+		    <p><a href="{{ path('recipe_remove_favorite', {'recipe_id': recipe.id}) }}" class="btn btn-success btn-lg">Remove Favorite</a></p>
+		    {% else %}
+		    <p><a href="{{ path('recipe_add_favorite', {'recipe_id': recipe.id}) }}" class="btn btn-success btn-lg">Add Favorite</a></p>
+		    {% endif %}
+		{% endif %}
+	</div>
+</div>
 {% include 'footer.twig' %}

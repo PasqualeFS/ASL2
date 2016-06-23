@@ -1,53 +1,60 @@
 {% include 'header.twig' %}
-<div class="container">
-	<div class="row">
-		<div class="col-lg-12">
-			<form action="" method="POST">
-			    <label for="title">Recipe Title</label>
-				<input type="text" name="title" placeholder="Mom's Favorite Fried Chicken"/>
-				<label for="ingredients">Ingredients</label>
-			    <textarea name="ingredients" cols="60" rows="10" placeholder"Recipe Ingredients"></textarea>
-			    <label for="instructions">Instructions</label>
-			    <textarea name="instructions" cols="60" rows="10" placeholder"Recipe Instructions"></textarea>
-			    <label for="category">Category</label>
-				<select name="category">
-					<option value="1">Appetizers</option>
-					<option value="2">Beef</option>
-					<option value="3">Beverages</option>
-					<option value="4">Breads</option>
-					<option value="5">Breakfast</option>
-					<option value="6">Desserts</option>
-					<option value="7">Holidays</option>
-					<option value="8">Lunch</option>
-					<option value="9">Pork</option>
-					<option value="10">Poultry</option>
-					<option value="11">Salads</option>
-					<option value="12">Seafood</option>
-					<option value="13">Soups</option>
-					<option value="14">Vegetables</option>
-					<option value="15">Other</option>
-				</select> 
-				<label for="cuisine">Cuisine</label>
-				<select name="cuisine">
-					<option value="1">American</option>
-					<option value="2">Chinese</option>
-					<option value="3">French</option>
-					<option value="4">German</option>
-					<option value="5">Greek</option>
-					<option value="6">Indian</option>
-					<option value="7">Italian</option>
-					<option value="8">Japanese</option>
-					<option value="9">Korean</option>
-					<option value="10">Mexican</option>
-					<option value="11">Spanish</option>
-					<option value="12">Thai</option>
-					<option value="13">Vegetarian</option>
-					<option value="14">Vietnamese</option>
-					<option value="15">Other</option>
-				</select> 
-
-			    <input type="submit" name="submit" value="Submit Recipe" class="formButton" />
-			</form>
+<div class="outerWrapper">
+	<div class="innerWrapper">
+		<div class="row">
+			<div class="col-lg-12">
+				<form action="" method="POST">
+				    <label for="title">Recipe Title</label>
+					<input type="text" name="title" placeholder="Mom's Favorite Fried Chicken" class="form-control"/>
+					<label for="ingredients">Ingredients</label>
+				    <textarea name="ingredients" cols="60" rows="5" placeholder"Recipe Ingredients" class="form-control"></textarea>
+				    <label for="instructions">Instructions</label>
+				    <textarea name="instructions" cols="60" rows="5" placeholder"Recipe Instructions" class="form-control"></textarea>
+				    <div class="formGroup">	
+				    	<label for="category">Category</label>
+						<select name="category" class="form-control">
+							<option value="1">Appetizers</option>
+							<option value="2">Beef</option>
+							<option value="3">Beverages</option>
+							<option value="4">Breads</option>
+							<option value="5">Breakfast</option>
+							<option value="6">Desserts</option>
+							<option value="7">Holidays</option>
+							<option value="8">Lunch</option>
+							<option value="9">Pork</option>
+							<option value="10">Poultry</option>
+							<option value="11">Salads</option>
+							<option value="12">Seafood</option>
+							<option value="13">Soups</option>
+							<option value="14">Vegetables</option>
+							<option value="15">Other</option>
+						</select> 
+					</div>
+					<div class="formGroup">	
+						<label for="cuisine">Cuisine</label>
+						<select name="cuisine" class="form-control">
+							<option value="1">American</option>
+							<option value="2">Chinese</option>
+							<option value="3">French</option>
+							<option value="4">German</option>
+							<option value="5">Greek</option>
+							<option value="6">Indian</option>
+							<option value="7">Italian</option>
+							<option value="8">Japanese</option>
+							<option value="9">Korean</option>
+							<option value="10">Mexican</option>
+							<option value="11">Spanish</option>
+							<option value="12">Thai</option>
+							<option value="13">Vegetarian</option>
+							<option value="14">Vietnamese</option>
+							<option value="15">Other</option>
+						</select> 
+					</div>
+					<div class="formGroup">	
+				    	<input type="submit" name="submit" value="Submit Recipe" class="btn btn-success btn-lg" />
+				    </div>
+				</form>
+			</div>
 		</div>
 	</div>
 </div>
