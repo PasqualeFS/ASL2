@@ -1,9 +1,31 @@
 {% include 'header.twig' %}
 
-{% if is_granted('IS_AUTHENTICATED_FULLY') %}
-	<h3>Hello, {{ app.user.firstName }}!</h3>
-{% endif %}
 
-<h1>Welcome to Pasquale's Recipes!</h1>
+
+
+<h1 class="mainH1">Welcome to My Favorite Recipes</h1>
+<div class="outerWrapper">
+	
+	
+	<div class="innerWrapper">
+		{% if is_granted('IS_AUTHENTICATED_FULLY') %}
+			<h3>Welcome, {{ app.user.firstName }}!</h3>
+			<p>To get started, you can <a href="{{ path('recipe_index') }}" class="standout">Browse</a> and <a href="{{ path('recipe_add') }}" class="standout">Add Recipes</a> using the navigation items above.<br />Clicking on <a href="{{ path('user_account') }}" class="standout">My Recipes</a> will show you a list of all of your favorite recipes.  
+		{% else %}
+
+		<h3>Great Recipes Should Be Shared!</h3>
+		<p>No doubt you're here because you're either looking for great recipes or you're hoping to share some of the ones you make at home with all of cyberspace.  <span class="standout">My Favorite Recipes</span> is just the place for online sharing of recipes.</p>
+		<p>Creating a recipe is easy.  Simply <a href="{{ path('login') }}" class="standout">log in</a> and you'll have access to creating recipes and sharing them with others.</p>
+		<p>Don't wait another minute.  Get your mise en place and start cooking!</p>
+		
+		<div class="mainButtons">
+			<a href="{{ path('recipe_index') }}" class="btn btn-success btn-lg">Browse Recipes</a> 
+			<a href="{{ path('login') }}" class="btn btn-success btn-lg">Login</a>
+		</div>
+		{% endif %}
+	</div>
+</div>
+
+
 
 {% include 'footer.twig' %}

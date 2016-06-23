@@ -1,32 +1,47 @@
 {% include 'header.twig' %}
+<div class="outerWrapper">
+    <h3 class="searchHeading">Search Recipes</h3>
+    <form action="" method="GET" id="searchForm">
+        <div class="formGroup">
+            <label for="titleSearch">Title</label>
+            <input type="text" name="titleSearch" value="{{ titleSearch }}" class="titleInput form-control" />
+        </div>
+        <br />
+        <div class="formGroup">
+            <label for="categorySearch">Category</label>
+            <select name="categorySearch" class="form-control" data-style="btn-primary">
+                <option value="">Any</option>
+                {% for category in categories %}
+                    <option value="{{category.id}}"{% if category.id == categorySearch %} selected{% endif %}>{{category.category|capitalize}}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="formGroup">
+            <label for="cuisineSearch">Cuisine</label>
+            <select name="cuisineSearch" class="form-control">
+                <option value="">Any</option>
+                {% for cuisine in cuisines %}
+                    <option value="{{cuisine.id}}"{% if cuisine.id == cuisineSearch %} selected{% endif %}>{{cuisine.type|capitalize}}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <br />
+        <div class="formGroup">
+            <input type="submit" name="submit" value="Search" class="btn btn-success btn-sm" />
+        </div>
+        <div class="formGroup">
+            <input type="button" onclick="location.href='{{ path('recipe_index') }}';" value="Reset Search" class="btn btn-success btn-sm" />
+        </div>
+    </form>
 
-<form action="" method="GET">
-    <label for="titleSearch">Title</label>
-    <input type="text" name="titleSearch" value="{{ titleSearch }}" />
+    <hr />
 
-    <label for="categorySearch">Category</label>
-    <select name="categorySearch">
-        <option value="">Any</option>
-        {% for category in categories %}
-            <option value="{{category.id}}"{% if category.id == categorySearch %} selected{% endif %}>{{category.category|capitalize}}</option>
+    <div class="recipeBox">
+        {% for recipe in recipes %}
+        <a href="/recipes/{{recipe.id}}" class="btn btn-primary btn-sm recipeButton">{{recipe.title}}</a>
+        {% else %}
+        <p>No recipes found</p>
         {% endfor %}
-    </select>
-
-    <label for="cuisineSearch">Cuisine</label>
-    <select name="cuisineSearch">
-        <option value="">Any</option>
-        {% for cuisine in cuisines %}
-            <option value="{{cuisine.id}}"{% if cuisine.id == cuisineSearch %} selected{% endif %}>{{cuisine.type|capitalize}}</option>
-        {% endfor %}
-    </select>
-    <input type="submit" name="submit" value="Search" class="formButton" />
-    <input type="button" onclick="location.href='{{ path('recipe_index') }}';" value="Reset Search" />
-</form>
-
-{% for recipe in recipes %}
-<a href="/recipes/{{recipe.id}}">{{recipe.title}}</a><br />
-{% else %}
-<p>No recipes found</p>
-{% endfor %}
-
+    </div>
+</div>
 {% include 'footer.twig' %}
